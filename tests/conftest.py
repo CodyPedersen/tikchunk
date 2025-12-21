@@ -4,7 +4,15 @@ import pytest
 import tiktoken
 import nltk
 
-from hypothesis.strategies import composite, DrawFn, integers, sampled_from, text, characters, booleans
+from hypothesis.strategies import (
+    composite,
+    DrawFn,
+    integers,
+    sampled_from,
+    text,
+    characters,
+    booleans
+)
 
 from tikchunk.chunk import DELIMITER_PRIORITY
 
@@ -42,9 +50,6 @@ def encoding(request: pytest.FixtureRequest) -> tiktoken.Encoding:
 )
 def max_chunk_size(request: pytest.FixtureRequest) -> int:
     return request.param
-
-
-
 
 
 @composite
