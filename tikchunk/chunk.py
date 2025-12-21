@@ -91,8 +91,6 @@ def chunk(
     def _merge_chunks(intervals: list[Interval], max_tokens: int) -> list[Interval]:
         """
         Re-merge ORDERED chunks split on semantic boundaries, up to max tokens.
-            max_tokens = 50
-            [1,17],[18,36],[37,70][70,120] -> [1,36][37,70][70,120]
         """
         if not intervals:
             return []
@@ -133,7 +131,7 @@ def chunk(
 
         cur_interval_tok: int = _calculate_tokens(cur_interval.start, cur_interval.end)
 
-        # > max tok -> decompose further
+        # if > max tok -> decompose further
         if cur_interval_tok > max_tokens:
             subintervals: list[Interval] = _chunk_and_merge(cur_interval, cur_prio)
             for subinterval in reversed(subintervals):
@@ -145,7 +143,6 @@ def chunk(
         # valid subinterval, add to final
         final_intervals.append(cur_interval)
 
-    #final_intervals.sort(key=lambda i: i.start)  # Hack: find efficient iterative traversal order
     return final_intervals
 
 
