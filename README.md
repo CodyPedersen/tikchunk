@@ -123,7 +123,7 @@ intervals = chunk(processed_text, tok_prefix_sum, max_tokens=1024)
 
 - Uses regex-based pattern matching for efficient delimiter detection
 - Employs numpy for fast token prefix sum calculations
-- Implements a queue-based iterative approach to avoid recursion depth issues
+- Implements a stack-based iterative approach to avoid recursion performance costs 
 - Preserves delimiters to maintain natural text readability
 
 ## License
@@ -132,4 +132,6 @@ MIT License
 
 ## Contributing
 
-Contributions welcome! Please ensure any changes maintain semantic splitting behavior and include appropriate tests.
+Contributions welcome! 
+Please ensure any changes maintain semantic splitting behavior and include appropriate tests. 
+As this project is open source, ensure minimum coverage constraints are met and include relevant property tests are created via hypothesis
