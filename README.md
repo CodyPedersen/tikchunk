@@ -4,8 +4,6 @@ A Python library for quickly chunking text documents at semantic boundaries whil
 
 **Performance**: Extremely performant python-based semantic chunker. Chunks the entire NLTK Gutenberg corpus in less than 3 seconds on an M1 Mac with max_tokens=512.
 
-## Quick Start
-`pip install tikchunk`
 
 ## Features
 
@@ -18,6 +16,8 @@ A Python library for quickly chunking text documents at semantic boundaries whil
 
 
 ## Quick Start
+
+`pip install tikchunk`
 
 ```python
 import tiktoken
