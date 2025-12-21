@@ -4,7 +4,6 @@ import pytest
 import tiktoken
 import nltk
 
-from hypothesis import strategies as st
 from hypothesis.strategies import composite, DrawFn, integers, sampled_from, text, characters, booleans
 
 from tikchunk.chunk import DELIMITER_PRIORITY
