@@ -22,4 +22,5 @@ def test_chunk_ordering(
         last_chunk: Interval = next(chunks)
         for chunk in chunks:
             assert last_chunk.end <= chunk.start
+            last_chunk = chunk
 
