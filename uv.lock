@@ -469,7 +469,6 @@ version = "0.0.2"
 source = { editable = "." }
 dependencies = [
     { name = "numpy" },
-    { name = "pytest-cov" },
     { name = "tiktoken" },
 ]
 
@@ -478,6 +477,7 @@ dev = [
     { name = "hypothesis" },
     { name = "nltk" },
     { name = "pytest" },
+    { name = "pytest-cov" },
     { name = "ruff" },
     { name = "ty" },
 ]
@@ -485,7 +485,6 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "numpy", specifier = ">=2.4.0" },
-    { name = "pytest-cov", specifier = ">=7.0.0" },
     { name = "tiktoken", specifier = ">=0.12.0" },
 ]
 
@@ -494,6 +493,7 @@ dev = [
     { name = "hypothesis", specifier = ">=6.148.7" },
     { name = "nltk", specifier = ">=3.9.2" },
     { name = "pytest", specifier = ">=9.0.2" },
+    { name = "pytest-cov", specifier = ">=7.0.0" },
     { name = "ruff", specifier = ">=0.14.10" },
     { name = "ty", specifier = ">=0.0.5" },
 ]
