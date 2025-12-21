@@ -134,4 +134,4 @@ MIT License
 
 Contributions welcome! 
 Please ensure any changes maintain semantic splitting behavior and include appropriate tests. 
-As this project is open source, ensure minimum coverage constraints are met and include relevant property tests are created via hypothesis
+As this project is open source, ensure minimum coverage constraints are met, and include relevant property tests created via hypothesis
