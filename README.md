@@ -2,7 +2,7 @@
 
 A Python library for quickly chunking text documents at semantic boundaries while respecting token limits. Designed for RAG (Retrieval-Augmented Generation) applications that need to split documents into meaningful, token-constrained segments.
 
-**Performance**: Chunks the entire NLTK Gutenberg corpus in ~3 seconds on an M1 Mac with max_tokens=512.
+**Performance**: Most performant python-based semantic chunker. Chunks the entire NLTK Gutenberg corpus in ~3 seconds on an M1 Mac with max_tokens=512.
 
 ## Quick Start
 `pip install tikchunk`
@@ -44,11 +44,12 @@ for chunk in chunker.chunk():
 
 The chunker uses a priority-based splitting strategy:
 
-1. **Priority 0**: Double newlines (paragraphs)
-2. **Priority 1**: Single newlines (lines)
-3. **Priority 2**: Sentence endings (`.`, `!`, `?`)
-4. **Priority 3**: Clause separators (`,`, `:`, `;`, `--`, `...`)
-5. **Priority 4**: Word boundaries (spaces)
+1. **Priority 0**: Paragraph breaks (`\n\n\n`, `\r\n\r\n\r\n`, `\n\n`, `\r\n\r\n`)
+2. **Priority 1**: Line breaks and dividers (`\n---\n`, `\n===\n`, `\n***\n`, `\r\n`, `\n`, `\r`)
+3. **Priority 2**: Sentence endings (`. `, `! `, `? `, `.`, `!`, `?`)
+4. **Priority 3**: Clause separators (`; `, `: `, `;`, `:`, ` -- `, ` — `, ` – `, `--`, `—`, `–`)
+5. **Priority 4**: Phrase separators (`, `, `,`, `...`, `…`)
+6. **Priority 5**: Word boundaries (` `)
 
 When a chunk exceeds `max_tokens`, the algorithm:
 1. Splits at the current priority level
