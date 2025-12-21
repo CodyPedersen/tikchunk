@@ -1,6 +1,6 @@
 [project]
 name = "tikchunk"
-version = "0.0.2"
+version = "0.0.3"
 description = "Simple fast RAG chunking on semantic boundaries"
 readme = "README.md"
 authors = [{ name = "Cody Pedersen"}]
