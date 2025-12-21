@@ -1,8 +1,8 @@
 # TikChunk: Semantic Text Chunker
 
-A Python library for intelligently chunking text documents at semantic boundaries while respecting token limits. Designed for RAG (Retrieval-Augmented Generation) applications that need to split documents into meaningful, token-constrained segments.
+A Python library for quickly chunking text documents at semantic boundaries while respecting token limits. Designed for RAG (Retrieval-Augmented Generation) applications that need to split documents into meaningful, token-constrained segments.
 
-**Performance**: Chunks the entire NLTK Gutenberg corpus in ~3 seconds on an M1 Mac.
+**Performance**: Chunks the entire NLTK Gutenberg corpus in ~3 seconds on an M1 Mac with max_tokens=512.
 
 ## Features
 
@@ -13,11 +13,6 @@ A Python library for intelligently chunking text documents at semantic boundarie
 - **Intelligent merging**: Combines smaller chunks to maximize token usage without exceeding limits
 - **Flexible output**: Returns either text chunks or interval boundaries
 
-## Installation
-
-```bash
-pip install tiktoken numpy
-```
 
 ## Quick Start
 
