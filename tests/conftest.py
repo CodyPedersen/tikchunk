@@ -8,6 +8,13 @@ from hypothesis import strategies as st
 from hypothesis.strategies import composite, DrawFn
 
 
+@pytest.fixture(scope="session", autouse=True)
+def download_nltk_data():
+    """Download NLTK data before running tests"""
+    try:
+        nltk.data.find('corpora/gutenberg')
+    except LookupError:
+        nltk.download('gutenberg', quiet=True)
 
 
 @pytest.fixture(scope="module")
