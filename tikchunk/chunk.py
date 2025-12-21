@@ -13,23 +13,18 @@ import numpy as np
 Interval = namedtuple('Interval', ['start', 'end'])
 IntervalPrio = namedtuple('IntervalPrio', ['interval', 'delimiter_prio'])
 
-DELIMETER_PRIORITY: dict[int,list[str]] = {
-    0: ["\n\n", "\r\n\r\n"],
-    1: ["\r\n", "\n", "\r"],
-    2: [".", "!", "?"],
-    3: [",",":",";", "--", "..."],
-    4: [" "]
+DELIMITER_PRIORITY: dict[int, list[str]] = {
+    0: ["\n\n\n", "\r\n\r\n\r\n", "\n\n", "\r\n\r\n"],  # Paragraph and section breaks
+    1: ["\n---\n", "\n===\n", "\n***\n", "\r\n", "\n", "\r"], # Line breaks and major dividers
+    2: [". ", "! ", "? ", ".", "!", "?"],  # Sentence endings
+    3: ["; ", ": ", ";", ":", " -- ", " — ", " – ", "--", "—", "–"],  # Clause separators
+    4: [", ", ",", "...", "…"], # Phrase separators
+    5: [" "], # Word boundaries
 }
 
-DELIMETER_RE = {
-    i: re.compile('|'.join(re.escape(d) for d in DELIMETER_PRIORITY[i]))
-    for i in range(len(DELIMETER_PRIORITY))
-}
-
-DELIM_SET: set[str] = {
-    delim
-    for delim_i in range(0, len(DELIMETER_PRIORITY))
-    for delim in DELIMETER_PRIORITY[delim_i]
+DELIMITER_RE = {
+    i: re.compile('|'.join(re.escape(d) for d in DELIMITER_PRIORITY[i]))
+    for i in range(len(DELIMITER_PRIORITY))
 }
 
 
@@ -65,14 +60,14 @@ def chunk(
         Further chunk an active Interval at the level associated with delimeter priority
         Preserves delimeters
         """
-        if delim_prio >= len(DELIMETER_PRIORITY):
+        if delim_prio >= len(DELIMITER_PRIORITY):
             err = (
                 "Unable to split at specified token token chunk size. "
                 "Consider increasing max_tokens."
             )
             raise ValueError(err)
 
-        pattern: re.Pattern = DELIMETER_RE[delim_prio]
+        pattern: re.Pattern = DELIMITER_RE[delim_prio]
         spans: list[Interval] = []
         last: int = interval.start
 
@@ -92,8 +87,6 @@ def chunk(
         """
         Re-merge ORDERED chunks split on semantic boundaries, up to max tokens.
         """
-        if not intervals:
-            return []
 
         merged_intervals: list[Interval] = [intervals.pop(0)]  # Not the most efficient
 

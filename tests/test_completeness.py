@@ -66,5 +66,3 @@ def test_raises_descriptive_error(text: str) -> None:
         match=r"Unable to split at specified token token chunk size.*"
     ):
         _ = chunker.chunk()
-
-
