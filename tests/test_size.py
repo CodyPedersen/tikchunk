@@ -1,11 +1,10 @@
 from collections.abc import Generator
 import tiktoken
+
 from tikchunk import Chunker
 
 
-
-
-def test_chunk_sizes_within_bounds(
+def test_chunk_sizes_within_bounds_gutenberg(
     gutenberg_texts: list[str],
     encoding: tiktoken.Encoding,
     max_chunk_size: int

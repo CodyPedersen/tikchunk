@@ -1,7 +1,7 @@
 [project]
 name = "tikchunk"
-version = "0.0.3"
-description = "Simple fast RAG chunking on semantic boundaries"
+version = "0.0.4"
+description = "Highly performant python library for recursive semantic text chunking while respecting token limits."
 readme = "README.md"
 authors = [{ name = "Cody Pedersen"}]
 requires-python = ">=3.12"

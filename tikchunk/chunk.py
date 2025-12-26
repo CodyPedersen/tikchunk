@@ -33,9 +33,11 @@ def build_tok_prefix_sum(encoding_text: str, token_pos: list[int]) -> np.ndarray
     """Build a prefix sum array of tokens at a given text index"""
     text_len = len(encoding_text)
 
-    token_starts = np.zeros(text_len + 1, dtype=np.int32)
     positions = np.array(token_pos, dtype=np.int32)
-    token_starts[positions] = 1
+
+    # Edge case: Uses bincount as more than than one token max start at the same index
+    token_starts = np.bincount(positions, minlength=text_len + 1)
+
     return np.cumsum(token_starts)
 
 
@@ -53,6 +55,7 @@ def chunk(
         Calculates tokens per text string with a 1 token buffer,
         as the prefix sum calcualtes token start positions, not end
         """
+        # Note: There are edge-cases, where tokens overlap
         return tok_prefix_sum[end] - tok_prefix_sum[start] + 1
 
     def _chunk_section_at_prio(interval: Interval, delim_prio: int) -> list[Interval]:

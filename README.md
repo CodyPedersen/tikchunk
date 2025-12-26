@@ -2,7 +2,7 @@
 
 A Python library for quickly chunking text documents at semantic boundaries while respecting token limits. Designed for RAG (Retrieval-Augmented Generation) applications that need to split documents into meaningful, token-constrained segments.
 
-**Performance**: Extremely performant python-based semantic chunker. Chunks the entire NLTK Gutenberg corpus in less than 3 seconds on an M1 Mac with max_tokens=512.
+**Performance**: Extremely performant python-based semantic chunker. Chunks the entire NLTK Gutenberg corpus in ~2.8 seconds on an M1 Mac with max_tokens=512.
 
 
 ## Features
@@ -21,7 +21,7 @@ A Python library for quickly chunking text documents at semantic boundaries whil
 
 ```python
 import tiktoken
-from chunker import Chunker
+from tikchunk import Chunker
 
 # Initialize with your text and encoding
 encoding = tiktoken.get_encoding("cl100k_base")
@@ -107,24 +107,15 @@ for interval in chunker.chunk():
     print(text[interval.start:interval.end])
 ```
 
-### Custom Token Counting
-
-```python
-from chunker import build_tok_prefix_sum, chunk
-
-toks = encoding.encode(text)
-processed_text, token_pos = encoding.decode_with_offsets(toks)
-tok_prefix_sum = build_tok_prefix_sum(processed_text, token_pos)
-
-intervals = chunk(processed_text, tok_prefix_sum, max_tokens=1024)
-```
-
 ## Implementation Details
 
 - Uses regex-based pattern matching for efficient delimiter detection
 - Employs numpy for fast token prefix sum calculations
 - Implements a stack-based iterative approach to avoid recursion performance costs 
 - Preserves delimiters to maintain natural text readability
+
+## User Notes
+- There is a rare edge cases which is NOT handled by design in order to ensure optimally fast processing. This occurs when tokens both start at the same index and overlap, which is *highly unusual* in english text (not found in NLTK corpus). This will lead to a +1 - +2 token size over expectation and will have non-critical impact in nearly all usecases.
 
 ## License
 
