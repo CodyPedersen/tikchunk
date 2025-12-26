@@ -115,7 +115,7 @@ for interval in chunker.chunk():
 - Preserves delimiters to maintain natural text readability
 
 ## User Notes
-- There is a rare edge cases which is NOT handled by design in order to ensure optimally fast processing. This occurs when tokens both start at the same index and overlap, which is *highly unusual* in english text (not found in NLTK corpus). This will lead to a +1 - +2 token size over expectation and will have non-critical impact in nearly all usecases.
+- There is a rare edge cases which is intentionally NOT handled by design in order to ensure optimally fast processing. This occurs when tokens both start at the same index and overlap, which is *highly unusual* in English text (not found in NLTK corpus or any other English test cases; only found in deliberate fuzzing). This will lead to a +1 - +2 token size over expectation and will have non-critical impact in nearly all usecases.
 
 ## License
 
