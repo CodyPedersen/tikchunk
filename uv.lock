@@ -480,6 +480,7 @@ dev = [
     { name = "pytest-cov" },
     { name = "ruff" },
     { name = "ty" },
+    { name = "wonderwords" },
 ]
 
 [package.metadata]
@@ -496,6 +497,7 @@ dev = [
     { name = "pytest-cov", specifier = ">=7.0.0" },
     { name = "ruff", specifier = ">=0.14.10" },
     { name = "ty", specifier = ">=0.0.5" },
+    { name = "wonderwords", specifier = ">=3.0.1" },
 ]
 
 [[package]]
@@ -589,4 +591,13 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/1e/24/a2a2ed9addd907787d7aa0355ba36a6cadf1768b934c652ea78acbd59dcd/urllib3-2.6.2.tar.gz", hash = "sha256:016f9c98bb7e98085cb2b4b17b87d2c702975664e4f060c6532e64d1c1a5e797", size = 432930, upload-time = "2025-12-11T15:56:40.252Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/6d/b9/4095b668ea3678bf6a0af005527f39de12fb026516fb3df17495a733b7f8/urllib3-2.6.2-py3-none-any.whl", hash = "sha256:ec21cddfe7724fc7cb4ba4bea7aa8e2ef36f607a4bab81aa6ce42a13dc3f03dd", size = 131182, upload-time = "2025-12-11T15:56:38.584Z" },
+]
+
+[[package]]
+name = "wonderwords"
+version = "3.0.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/ff/23/e144fc3dfabb845dc1d94c45315d97b308cf75a664e3db3a89aeb1cb505d/wonderwords-3.0.1.tar.gz", hash = "sha256:5ee43ab6f13823a857a7c3d58c7b4db6a1350bd3aa5f914ed379ad49042a1c36", size = 73339, upload-time = "2025-10-30T17:30:44.231Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/a4/75/855c2062d28b8e9247939f8262fb2f4ff3b12a49e4bab9fd1ba16cc5df82/wonderwords-3.0.1-py3-none-any.whl", hash = "sha256:4dd66deb6a76ca9e0b0422d1d3e111f9b910d7c16922d42de733ee8def98f8d0", size = 51658, upload-time = "2025-10-30T17:30:42.785Z" },
 ]

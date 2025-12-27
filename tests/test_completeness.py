@@ -32,7 +32,7 @@ def test_chunk_completeness(
 
 @given(text=semantically_chunked_text())
 @settings(deadline=None, max_examples=50)
-def test_completeness_property(
+def test_completeness_invariant(
     text: str,
     encoding: tiktoken.Encoding,
     max_chunk_size: int

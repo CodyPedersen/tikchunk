@@ -9,10 +9,9 @@ from hypothesis.strategies import (
     DrawFn,
     integers,
     sampled_from,
-    text,
-    characters,
     booleans
 )
+from wonderwords import RandomWord
 
 from tikchunk.chunk import DELIMITER_PRIORITY
 
@@ -55,42 +54,64 @@ def max_chunk_size(request: pytest.FixtureRequest) -> int:
 @composite
 def semantically_chunked_text(draw: DrawFn) -> str:
     """Generate text that looks like actual prose with varied delimiters."""
+    # Calculate total words needed upfront
     num_paragraphs: int = draw(integers(min_value=1, max_value=10))
-    paragraphs: list[str] = []
 
-    para_sep: str = draw(sampled_from(DELIMITER_PRIORITY[0]))
+    # Pre-calculate structure and total word count
+    structure: list[list[list[int]]] = []  # paragraphs -> sentences -> chunks (word counts)
+    total_words: int = 0
 
     for _ in range(num_paragraphs):
         num_sentences: int = draw(integers(min_value=1, max_value=8))
-        sentences: list[str] = []
+        paragraph_structure: list[list[int]] = []
 
         for _ in range(num_sentences):
-            # Build sentence with varied internal structure
-            chunks: list[str] = []
             num_chunks: int = draw(integers(min_value=1, max_value=4))
+            sentence_structure: list[int] = []
 
             for _ in range(num_chunks):
                 num_words: int = draw(integers(min_value=3, max_value=12))
-                words: list[str] = []
+                sentence_structure.append(num_words)
+                total_words += num_words
 
-                for _ in range(num_words):
-                    word: str = draw(text(
-                        alphabet=characters(whitelist_categories=('Lu', 'Ll')),
-                        min_size=1,
-                        max_size=12
-                    ))
-                    words.append(word)
+            paragraph_structure.append(sentence_structure)
 
+        structure.append(paragraph_structure)
+
+    # Generate ALL words in one call
+    word_generator = RandomWord()
+    all_words: list[str] = word_generator.random_words(
+        amount=total_words,
+        word_min_length=1,
+        word_max_length=12
+    )
+
+    # Track position in word list
+    word_idx: int = 0
+    paragraphs: list[str] = []
+    para_sep: str = draw(sampled_from(DELIMITER_PRIORITY[0]))
+
+    for paragraph_structure in structure:
+        sentences: list[str] = []
+
+        for sentence_structure in paragraph_structure:
+            chunks: list[str] = []
+
+            for num_words in sentence_structure:
+                # Extract the next batch of words
+                words: list[str] = all_words[word_idx:word_idx + num_words]
+                word_idx += num_words
+
+                # Capitalize first word of each chunk
+                words[0] = words[0].capitalize()
                 chunks.append(" ".join(words))
 
             # Join chunks with clause separators (priority 3-4)
             if len(chunks) > 1:
-                # Use varied internal punctuation
                 internal_seps: list[str] = []
                 for _ in range(len(chunks) - 1):
                     sep_priority: int = draw(sampled_from([3, 4]))
                     sep: str = draw(sampled_from(DELIMITER_PRIORITY[sep_priority]))
-                    # Add space after if not already present
                     if not sep.endswith(" "):
                         sep += " "
                     internal_seps.append(sep)

@@ -52,11 +52,14 @@ def chunk(
 
     def _calculate_tokens(start: int, end: int) -> int:
         """
-        Calculates tokens per text string with a 1 token buffer,
-        as the prefix sum calcualtes token start positions, not end
+        Calculates worst-case buffered token count for text range [start, end)
+        To maintain performance, estimates token size based on tokens
+        which may start before the chunk and and after the chunk.
+
+        Deliberate tradeoff - prioritizes speed over minimizing
+        token delta from max.
         """
-        # Note: There are edge-cases, where tokens overlap
-        return tok_prefix_sum[end] - tok_prefix_sum[start] + 1
+        return tok_prefix_sum[end] - tok_prefix_sum[start] + 2
 
     def _chunk_section_at_prio(interval: Interval, delim_prio: int) -> list[Interval]:
         """

@@ -114,8 +114,6 @@ for interval in chunker.chunk():
 - Implements a stack-based iterative approach to avoid recursion performance costs 
 - Preserves delimiters to maintain natural text readability
 
-## User Notes
-- There is a very rare edge case which is intentionally NOT handled by design in order to ensure optimally fast processing. This occurs for select encodings when tokens both start at the same index and overlap or *would* extend over the input text bounds. This is is *highly unusual* in English text (not found in NLTK corpus or any other English test cases; only found in deliberate fuzzing). This will lead to a +1 - +2 token size over expectation and will have non-critical impact in nearly all usecases.
 
 ## License
 
